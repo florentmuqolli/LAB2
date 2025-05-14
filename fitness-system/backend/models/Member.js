@@ -1,0 +1,41 @@
+const pool = require('../config/db');
+const mongoose = require('mongoose');
+
+class Member {
+    static async findByEmail(email) {
+      const [rows] = await pool.query(
+        'SELECT * FROM members WHERE email = ?', 
+        [email]
+      );
+      return rows[0];
+    }
+  
+    static async findById(id) {
+      const [rows] = await pool.query(
+        'SELECT * FROM members WHERE id = ?',
+        [id]
+      );
+      return rows[0];
+    }
+  
+    static async create({ name, email, password, role = 'member' }) {
+      const [result] = await pool.query(
+        `INSERT INTO members (name, email, password_hash, role) 
+         VALUES (?, ?, ?, ?)`,
+        [name, email, password, role]
+      );
+      return result.insertId;
+    }
+  }
+  
+const workoutLogSchema = new mongoose.Schema({
+  memberId: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
+  exercises: [{
+    name: String,
+    sets: Number,
+    reps: Number
+  }]
+});
+
+module.exports = Member;
+module.exports = mongoose.model('WorkoutLog', workoutLogSchema);

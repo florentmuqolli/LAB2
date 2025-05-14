@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/members', require('./routes/memberRoutes'));
-app.use('/api/trainers', require('./routes/trainerRoutes'));
+//app.use('/api/trainers', require('./routes/trainerRoutes'));
 
 
 const PORT = process.env.PORT || 5000;
