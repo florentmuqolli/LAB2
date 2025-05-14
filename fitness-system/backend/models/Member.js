@@ -27,15 +27,5 @@ class Member {
       return result.insertId;
     }
   }
-  
-const workoutLogSchema = new mongoose.Schema({
-  memberId: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
-  exercises: [{
-    name: String,
-    sets: Number,
-    reps: Number
-  }]
-});
 
 module.exports = Member;
-module.exports = mongoose.model('WorkoutLog', workoutLogSchema);

@@ -19,6 +19,11 @@ const generateTokens = (memberId, role) => {
 exports.register = async (req, res) => {
   try {
     const { name, email, password, role = 'member' } = req.body;
+
+    const member = await Member.findByEmail(email);
+    if (member) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
     
     if (!['member', 'trainer', 'admin'].includes(role)) {
       return res.status(400).json({ error: 'Invalid role' });
