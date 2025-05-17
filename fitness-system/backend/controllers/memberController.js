@@ -90,28 +90,41 @@ exports.logout = (req, res) => {
 
 exports.refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) throw new Error('No refresh token');
+    const refreshToken = req.cookies?.refreshToken || req.headers['x-refresh-token'];
+    
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'No refresh token provided' });
+    }
 
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const member = await Member.findById(decoded.id);
     
-    if (!member) throw new Error('Member not found');
+    if (!member) {
+      return res.status(404).json({ error: 'Member not found' });
+    }
 
-    const accessToken = jwt.sign(
-      { id: member.id, role: member.role }, 
-      process.env.JWT_SECRET, 
+    const newAccessToken = jwt.sign(
+      { id: member.id, role: member.role },
+      process.env.JWT_SECRET,
       { expiresIn: '15m' }
     );
 
-    res.cookie('accessToken', accessToken, { 
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production' 
+    res.cookie('accessToken', newAccessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 900000 
     });
-    
-    res.json({ message: 'Token refreshed' });
 
+    res.json({ message: 'Access token refreshed' });
   } catch (error) {
+    console.error('Refresh token error:', error.message);
     res.status(403).json({ error: 'Invalid refresh token' });
   }
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+  res.json({ message: 'Logged out successfully' });
 };
