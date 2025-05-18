@@ -128,3 +128,26 @@ exports.logout = (req, res) => {
   res.clearCookie('refreshToken');
   res.json({ message: 'Logged out successfully' });
 };
+
+exports.getAllMembers = async (req, res) => {
+  try {
+    const members = await Member.findAll();
+    res.json(members);
+  } catch (error) {
+    console.error('Admin member fetch error:', error);
+    res.status(500).json({ error: 'Failed to fetch members' });
+  }
+};
+
+exports.updateMember = async (req, res) => {
+  try {
+    const updatedMember = await Member.update(req.params.id, req.body);
+    res.json({ 
+      message: 'Member updated',
+      member: updatedMember 
+    });
+  } catch (error) {
+    console.error('Member update error:', error);
+    res.status(500).json({ error: 'Update failed' });
+  }
+};

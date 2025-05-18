@@ -8,6 +8,8 @@ router.post('/register', memberController.register);
 router.post('/login', memberController.login);
 router.post('/refresh-token', memberController.refreshToken);
 router.post('/logout', memberController.logout);
+router.get('/', memberController.getAllMembers, requireRole('admin'));
+router.put('/:id', memberController.updateMember, requireRole('admin'));
 
 router.get('/profile', authMiddleware.authenticate, (req, res) => {
   res.json({ message: `Welcome, member ${req.memberId}!` });
