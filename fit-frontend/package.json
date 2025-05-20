@@ -1,5 +1,5 @@
 {
-  "name": "fitness-frontend",
+  "name": "fit-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,13 +9,13 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
-    "cookie-parser": "^1.4.7",
-    "js-cookie": "^3.0.5",
+    "framer-motion": "^12.12.1",
     "react": "^19.1.0",
-    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.17.0",
+    "react-toastify": "^11.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

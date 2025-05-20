@@ -1,39 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const memberController = require('../controllers/memberController');
-const authMiddleware = require('../middleware/authMiddleware');
-const { requireRole } = require('../middleware/roleMiddleware');
+const { authenticateToken, authorizeRoles } = require('../middleware/auth');
 
-router.post('/register', memberController.register);
-router.post('/login', memberController.login);
-router.post('/refresh-token', memberController.refreshToken);
-router.post('/logout', memberController.logout);
-router.get('/', memberController.getAllMembers, requireRole('admin'));
-router.put('/:id', memberController.updateMember, requireRole('admin'));
-
-router.get('/profile', authMiddleware.authenticate, (req, res) => {
-  res.json({ message: `Welcome, member ${req.memberId}!` });
-});
-
-router.get('/admin-dashboard', 
-    authMiddleware.authenticate, 
-    requireRole('admin'),
-    (req, res) => {
-      res.json({ message: 'Admin dashboard' });
-    }
-  );
-  
-  router.get('/trainer-tools',
-    authMiddleware.authenticate,
-    (req, res, next) => {
-      if (!['trainer', 'admin'].includes(req.memberRole)) {
-        return res.status(403).json({ error: 'Requires trainer role' });
-      }
-      next();
-    },
-    (req, res) => {
-      res.json({ message: 'Trainer tools' });
-    }
-  );
+router.get('/', authenticateToken, authorizeRoles('admin', 'trainer'), memberController.getAllMembers);
+router.get('/:id', authenticateToken, authorizeRoles('admin', 'trainer', 'member'), memberController.getMemberById);
+router.post('/', authenticateToken, authorizeRoles('admin'), memberController.createMember);
+router.put('/:id', authenticateToken, authorizeRoles('admin'), memberController.updateMember);
+router.delete('/:id', authenticateToken, authorizeRoles('admin'), memberController.deleteMember);
 
 module.exports = router;
