@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/LoadingSpinner";
+import PageWrapper from "../components/PageWrapper";
 
 const Register = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -33,7 +34,8 @@ const Register = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="container mt-5">
+    <PageWrapper>
+      <div className="container mt-5">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -70,6 +72,7 @@ const Register = () => {
         </button>
       </form>
     </div>
+    </PageWrapper>
   );
 };
 

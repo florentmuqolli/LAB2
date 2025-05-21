@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/LoadingSpinner";
+import PageWrapper from "../components/PageWrapper";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const role = localStorage.getItem("role");
+
+    if (token && role === "admin") {
+      navigate("/dashboard");
+    } 
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +55,8 @@ const Login = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="container mt-5">
+    <PageWrapper>
+      <div className="container mt-5">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -74,6 +86,7 @@ const Login = () => {
         </button>
       </form>
     </div>
+    </PageWrapper>
   );
 };
 

@@ -9,22 +9,23 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import "./pages/Home.css";
 
-function App() {
+const AppRoutes = () => {
   const isLoggedIn = !!localStorage.getItem("token");
   const location = useLocation();
+  const isDashboardRoute = location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      <Router>
-        {!isLoggedIn && <Navbar />}
+      {!isDashboardRoute && !isLoggedIn && <Navbar />}
         <AnimatePresence mode="wait">
-          <Routes>
+          <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={
               <ProtectedRoute requiredRole="admin">
                 <Dashboard />
@@ -33,6 +34,16 @@ function App() {
           />
         </Routes>
         </AnimatePresence>
+    </>
+  );
+};
+
+function App() {
+
+  return (
+    <>
+      <Router>
+        <AppRoutes />
       </Router>
       <ToastContainer autoClose={2000} position="top-right" />
     </>

@@ -46,6 +46,9 @@ const Sidebar = () => {
         <li className={`nav-item ${isActive("/dashboard/trainers")}`}>
           <Link className="nav-link text-white" to="/dashboard/trainers">Trainers</Link>
         </li>
+        <li className={`nav-item ${isActive("/dashboard/home")}`}>
+          <Link className="nav-link text-white" to="/dashboard/home">Home</Link>
+        </li>
       </ul>
       <div className="mt-auto pt-4">
         <button className="btn btn-danger" onClick={handleLogout} disabled={loading}>

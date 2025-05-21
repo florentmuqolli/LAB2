@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Members from "./Members";
 import Subscriptions from "./Subscriptions";
 import Trainers from "./Trainers";
+import Home from "./Home";
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
           <Route path="members" element={<Members />} />
           <Route path="subscriptions" element={<Subscriptions />} />
           <Route path="trainers" element={<Trainers />} />
+          <Route path="home" element={<Home />} />
         </Routes>
       </div>
     </div>
