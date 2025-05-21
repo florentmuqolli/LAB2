@@ -13,7 +13,8 @@ import "./pages/Home.css";
 import PageWrapper from "./components/PageWrapper";
 import ProfilePage from "./pages/Profile";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import MyWorkoutPlan from "./pages/MyWorkoutPlan";
+import TrainerDashboard from "./pages/TrainerDashboard";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -27,7 +28,16 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />
+          <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />      
+          <Route path="/my-plans" element={<PageWrapper><MyWorkoutPlan /></PageWrapper>} />
+          <Route
+            path="/trainers"
+            element={
+              <ProtectedRoute requiredRole="trainer">
+                <TrainerDashboard />
+              </ProtectedRoute>
+            }
+          /> 
           <Route
             path="/dashboard/*"
             element={

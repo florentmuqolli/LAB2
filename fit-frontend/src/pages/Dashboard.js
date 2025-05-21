@@ -5,10 +5,12 @@ import Members from "./Members";
 import Subscriptions from "./Subscriptions";
 import Trainers from "./Trainers";
 import Home from "./Home";
+import PageWrapper from "../components/PageWrapper";
 
 const Dashboard = () => {
   return (
-    <div className="d-flex">
+    <PageWrapper>
+      <div className="d-flex">
       <Sidebar />
       <div className="flex-grow-1 p-4" style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
         <Routes>
@@ -20,6 +22,7 @@ const Dashboard = () => {
         </Routes>
       </div>
     </div>
+    </PageWrapper>
   );
 };
 
