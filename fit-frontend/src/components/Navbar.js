@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/logout");
+      await axios.post("http://localhost:5000/api/auth/logout");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("role");
@@ -23,10 +23,10 @@ const Navbar = () => {
         navigate("/");
       }, 1000);
     } catch (error) {
-        console.error(error);
-        const message = error.response?.data?.message || 'Something went wrong';
-        toast.error(message);
-        setLoading(false);
+      console.error(error);
+      const message = error.response?.data?.message || 'Something went wrong';
+      toast.error(message);
+      setLoading(false);
     }
   };
 
@@ -35,11 +35,29 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand navbar-light bg-light px-4">
       <Link className="navbar-brand" to="/">Fitness System</Link>
+
       <div className="ms-auto">
         {isLoggedIn ? (
-          <button className="btn btn-danger" onClick={handleLogout} disabled={loading}>
-            {loading ? "Logging out..." : "Logout"}
-          </button>
+          <div className="dropdown">
+            <button
+              className="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="profileDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Profile
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li>
+                <Link className="dropdown-item" to="/profile">👤 Profile</Link>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>🚪 Logout</button>
+              </li>
+            </ul>
+          </div>
         ) : (
           <>
             <Link to="/login" className="btn btn-outline-primary me-2">Login</Link>

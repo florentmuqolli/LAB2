@@ -6,6 +6,13 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['admin', 'trainer', 'member'], default: 'member' },
+  age: { type: Number },
+  gender: { type: String, enum: ['male', 'female', 'other'] },
+  profilePicture: { type: String },
+  membershipType: { type: String }, 
+  subscriptionStatus: { type: String, enum: ['active', 'inactive', 'expired'], default: 'active' },
+  joinDate: { type: Date, default: Date.now }
+
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {

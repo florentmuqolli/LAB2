@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./Home.css"; 
 
 const Home = () => {
+  const isLoggedIn = !!localStorage.getItem("accessToken");
   return (
     <PageWrapper>
       <div className="home-container">
@@ -39,11 +40,11 @@ const Home = () => {
           </blockquote>
           <p>Consistency builds confidence. We're here to help you stay on track.</p>
         </section>
-
+        {!isLoggedIn && 
         <section className="cta-section">
           <h2>Ready to Start Your Journey?</h2>
           <Link to="/login" className="cta-button">Login</Link>
-        </section>
+        </section>}
       </div>
     </PageWrapper>
   );

@@ -10,20 +10,24 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./pages/Home.css";
+import PageWrapper from "./components/PageWrapper";
+import ProfilePage from "./pages/Profile";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const AppRoutes = () => {
-  const isLoggedIn = !!localStorage.getItem("token");
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      {!isDashboardRoute && !isLoggedIn && <Navbar />}
+      {!isDashboardRoute && <Navbar />}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />
           <Route
             path="/dashboard/*"
             element={
