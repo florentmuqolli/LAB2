@@ -88,3 +88,19 @@ exports.updateUserProfile = async (req, res) => {
     res.status(500).json({ message: "Failed to update profile" });
   }
 };
+
+exports.getUsersByRole = async (req, res) => {
+  try {
+    const role = req.query.role;
+    if (!role) {
+      return res.status(400).json({ message: 'Role query parameter is required' });
+    }
+
+    const users = await User.find({ role }).select('-password');
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const TrainerPlanForm = ({ initialData = null, onSubmit, onCancel }) => {
   const [form, setForm] = useState({
@@ -6,11 +7,28 @@ const TrainerPlanForm = ({ initialData = null, onSubmit, onCancel }) => {
     description: "",
     days: [],
     exercises: [{ name: "", sets: "", reps: "" }],
+    member: "", 
   });
+
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     if (initialData) setForm(initialData);
+    fetchMembers();
   }, [initialData]);
+
+  const fetchMembers = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:5000/api/auth/users?role=member", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setMembers(data);
+    } catch (err) {
+      console.error("Failed to fetch members", err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +53,10 @@ const TrainerPlanForm = ({ initialData = null, onSubmit, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!form.member) {
+      alert("Please select a member");
+      return;
+    }
     onSubmit(form);
   };
 
@@ -58,6 +80,19 @@ const TrainerPlanForm = ({ initialData = null, onSubmit, onCancel }) => {
         />
         <small className="text-muted">Separate days with commas (e.g. Monday, Wednesday)</small>
       </div>
+
+      <div className="mb-3">
+        <label>Select Member</label>
+        <select name="member" value={form.member} onChange={handleChange} className="form-control" required>
+          <option value="">-- Select Member --</option>
+          {members.map((m) => (
+            <option key={m._id} value={m._id}>
+              {m.name} ({m.email})
+            </option>
+          ))}
+        </select>
+      </div>
+
       <hr />
       <h5>Exercises</h5>
       {form.exercises.map((exercise, index) => (

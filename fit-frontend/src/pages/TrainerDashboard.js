@@ -53,8 +53,8 @@ const TrainerDashboard = () => {
       setShowModal(false);
       setSelectedPlan(null);
       fetchPlans();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error('Error creating/updating workout plan:', error.response?.data || error.message);
       toast.error("Something went wrong");
     }
   };

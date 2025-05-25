@@ -8,7 +8,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const trainerRoutes = require('./routes/trainerRoutes');
-const workoutRotues = require('./routes/workoutRoutes');
+//const workoutRotues = require('./routes/workoutRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const workoutPlanRoutes = require('./routes/workoutPlanRoutes')
 
@@ -35,7 +35,7 @@ mysqlPool.getConnection()
 app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/trainers', trainerRoutes);
-app.use('/api/workout', workoutRotues);
+//app.use('/api/workout', workoutRotues);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/workout-plans', workoutPlanRoutes);
 

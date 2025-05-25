@@ -9,5 +9,6 @@ router.post('/refresh-token', authController.refreshToken);
 router.post('/logout', authController.logout);
 router.get("/me", authenticateToken, authController.getUserProfile);
 router.put("/me", authenticateToken, authController.updateUserProfile);
+router.get('/users', authenticateToken, authController.getUsersByRole);
 
 module.exports = router;
