@@ -11,14 +11,17 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchProfile = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/auth/me", {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         });
-        setUser(res.data);
-        setFormData(res.data);
-        setLoading(false);
+        setTimeout(() => {
+          setUser(res.data);
+          setFormData(res.data);
+          setLoading(false);
+        }, 1000);
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch profile");
@@ -68,7 +71,7 @@ const ProfilePage = () => {
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 100 }}
           />
-          <h3>{user.fullName}</h3>
+          <h3>{user.name}</h3>
           <p className="text-muted">{user.email}</p>
         </div>
 

@@ -1,0 +1,64 @@
+.my-workout-plans {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #1c1c1c, #121212);
+  color: #eaeaea;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.my-workout-plans h2 {
+  font-size: 2rem;
+  color: #00ffb2;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.plan-card {
+  background: #181818;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 255, 128, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 255, 128, 0.2);
+}
+
+.plan-card h3 {
+  color: #00ff88;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.plan-card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+  margin-bottom: 0.8rem;
+}
+
+.plan-card strong {
+  display: block;
+  color: #00ffaa;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.plan-card ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.8rem;
+}
+
+.plan-card li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  font-size: 0.95rem;
+}

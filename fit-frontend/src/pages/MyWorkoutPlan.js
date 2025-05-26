@@ -1,53 +1,54 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from "framer-motion";
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import './WorkoutPlan.css';
+import LoadingSpinner from "../components/LoadingSpinner";
+import { toast } from "react-toastify";
 
-const MyWorkoutPlan = () => {
+const MyWorkoutPlans = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchMyPlans = async () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) return;
-
-    try {
-      const res = await axios.get('http://localhost:5000/api/workout-plans/mine', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setPlans(res.data);
-    } catch (err) {
-      toast.error('Failed to load your workout plans');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchMyPlans();
+    setLoading(true);
+    const fetchPlans = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('http://localhost:5000/api/workout-plans/my-plans', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setTimeout(() => {
+          setPlans(response.data);
+          setLoading(false);
+        }, 1000);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to fetch workouts");
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
   }, []);
 
-  if (loading) return <div className="text-center mt-4">Loading your plans...</div>;
+  if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="container mt-4">
-      <h3 className="mb-4">My Workout Plans</h3>
+    <div className="my-workout-plans">
+      <h2>My Workout Plans</h2>
       {plans.length === 0 ? (
-        <p>You have no assigned workout plans yet.</p>
+        <p>No workout plans assigned yet.</p>
       ) : (
         plans.map(plan => (
-          <div key={plan._id} className="card mb-3 shadow-sm">
-            <div className="card-body">
-              <h5 className="card-title">{plan.title}</h5>
-              <p className="card-text">{plan.description}</p>
-              <p><strong>Days:</strong> {plan.days.join(', ')}</p>
-              <ul>
-                {plan.exercises.map((ex, i) => (
-                  <li key={i}>{ex.name} — {ex.sets} sets x {ex.reps} reps</li>
-                ))}
-              </ul>
-            </div>
+          <div key={plan._id} className="plan-card">
+            <h3>{plan.title}</h3>
+            <p>{plan.description}</p>
+            <strong>Days: </strong>{plan.days.join(', ')}
+            <ul>
+              {plan.exercises.map((ex, idx) => (
+                <li key={idx}>{ex.name} - {ex.sets} sets x {ex.reps} reps</li>
+              ))}
+            </ul>
           </div>
         ))
       )}
@@ -55,4 +56,4 @@ const MyWorkoutPlan = () => {
   );
 };
 
-export default MyWorkoutPlan;
+export default MyWorkoutPlans;

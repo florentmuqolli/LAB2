@@ -29,7 +29,7 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />      
-          <Route path="/my-plans" element={<PageWrapper><MyWorkoutPlan /></PageWrapper>} />
+          <Route path="/my-plans" element={<PageWrapper><ProtectedRoute requiredRole="member"><MyWorkoutPlan /></ProtectedRoute></PageWrapper>} />
           <Route
             path="/trainers"
             element={

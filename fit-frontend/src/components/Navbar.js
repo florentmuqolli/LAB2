@@ -54,6 +54,10 @@ const Navbar = () => {
               </li>
               <li><hr className="dropdown-divider" /></li>
               <li>
+                <Link className="dropdown-item" to="/my-plans"> Workout</Link>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
                 <button className="dropdown-item text-danger" onClick={handleLogout}>🚪 Logout</button>
               </li>
             </ul>

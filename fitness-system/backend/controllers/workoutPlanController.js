@@ -10,6 +10,16 @@ exports.getWorkoutPlans = async (req, res) => {
   }
 };
 
+exports.getMyWorkoutPlans = async (req, res) => {
+  try {
+    const plans = await WorkoutPlan.find({ member: req.user.id });
+    res.status(200).json(plans);
+  } catch (err) {
+    console.error('Error fetching workout plans:', err);
+    res.status(500).json({ message: 'Failed to fetch workout plans' });
+  }
+};
+
 exports.createWorkoutPlan = async (req, res) => {
   try {
     const { member, title, description, days, exercises } = req.body;
