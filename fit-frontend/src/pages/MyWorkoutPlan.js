@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from "framer-motion";
 import axios from 'axios';
 import './WorkoutPlan.css';
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -9,26 +8,45 @@ const MyWorkoutPlans = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchWorkoutPlans = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.get('http://localhost:5000/api/workout-plans/my-plans', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPlans(response.data);
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        try {
+          const refreshRes = await axios.post('http://localhost:5000/api/auth/refresh-token', {}, {
+            withCredentials: true 
+          });
+
+          const newAccessToken = refreshRes.data.accessToken;
+          console.log('New access token:', newAccessToken);
+          localStorage.setItem('accessToken', newAccessToken);
+
+          console.log('Retrying with access token:', newAccessToken);
+          const retryRes = await axios.get('http://localhost:5000/api/workout-plans/my-plans', {
+            headers: { Authorization: `Bearer ${newAccessToken}` }
+          });
+          setPlans(retryRes.data);
+        } catch (refreshError) {
+          toast.error("Session expired. Please log in again.");
+          console.error("Refresh failed:", refreshError);
+        }
+      } else {
+        toast.error("Failed to fetch workouts");
+        console.error(err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
-    const fetchPlans = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.get('http://localhost:5000/api/workout-plans/my-plans', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setTimeout(() => {
-          setPlans(response.data);
-          setLoading(false);
-        }, 1000);
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to fetch workouts");
-        setLoading(false);
-      }
-    };
-
-    fetchPlans();
+    fetchWorkoutPlans();
   }, []);
 
   if (loading) return <LoadingSpinner />;

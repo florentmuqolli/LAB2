@@ -32,6 +32,14 @@ mysqlPool.getConnection()
     console.error('MySQL connection error:', err);
   });
 
+  app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.url}`);
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  next();
+});
+
+
 app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/trainers', trainerRoutes);

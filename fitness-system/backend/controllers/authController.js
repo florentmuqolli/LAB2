@@ -50,10 +50,10 @@ exports.login = async (req, res) => {
 };
 
 exports.refreshToken = (req, res) => {
-  const { token } = req.body;
-  if (!token) return res.status(401).json({ message: 'No token provided' });
+  const { refreshToken } = req.body;
+  if (!refreshToken) return res.status(401).json({ message: 'No token provided' });
 
-  jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Invalid token' });
 
     const accessToken = generateToken({ _id: decoded.id, role: decoded.role }, process.env.JWT_SECRET, '15m');

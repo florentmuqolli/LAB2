@@ -30,7 +30,6 @@ const Login = () => {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
       localStorage.setItem("role", response.data.user.role); 
-      console.log('Role: ',response.data.user.role);
 
       toast.success("Logged in");
 

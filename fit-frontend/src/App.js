@@ -15,6 +15,7 @@ import ProfilePage from "./pages/Profile";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import MyWorkoutPlan from "./pages/MyWorkoutPlan";
 import TrainerDashboard from "./pages/TrainerDashboard";
+import RefreshTest from "./components/RefreshTest";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const AppRoutes = () => {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
+          <Route path="/test" element={<RefreshTest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />      
