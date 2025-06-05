@@ -14,13 +14,8 @@ exports.register = async (req, res) => {
     user = new User({ name, email, password, role });
     await user.save();
 
-    const accessToken = generateToken(user, process.env.JWT_SECRET, '15m');
-    const refreshToken = generateToken(user, process.env.JWT_REFRESH_SECRET, '7d');
-
     res.status(201).json({
-      user: { id: user._id, name: user.name, email: user.email, role: user.role },
-      accessToken,
-      refreshToken,
+      message: 'User registered successfully',
     });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -36,13 +31,20 @@ exports.login = async (req, res) => {
     const isMatch = await user.matchPassword(password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const accessToken = generateToken(user, process.env.JWT_SECRET, '15m');
+    const accessToken = generateToken(user, process.env.JWT_SECRET, '2h');
     const refreshToken = generateToken(user, process.env.JWT_REFRESH_SECRET, '7d');
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: false, 
+      sameSite: 'none',
+      path: '/api/auth/refresh-token',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
       accessToken,
-      refreshToken,
     });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -50,10 +52,10 @@ exports.login = async (req, res) => {
 };
 
 exports.refreshToken = (req, res) => {
-  const { refreshToken } = req.body;
-  if (!refreshToken) return res.status(401).json({ message: 'No token provided' });
+  const token = req.cookies.refreshToken;
+  if (!token) return res.status(401).json({ message: 'No token provided' });
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Invalid token' });
 
     const accessToken = generateToken({ _id: decoded.id, role: decoded.role }, process.env.JWT_SECRET, '15m');
@@ -62,6 +64,13 @@ exports.refreshToken = (req, res) => {
 };
 
 exports.logout = (req, res) => {
+  res.clearCookie('refreshToken', {
+  httpOnly: true,
+  sameSite: 'None', 
+  secure: false,    
+  path: '/api/auth/refresh-token',
+});
+
   return res.status(200).json({ message: 'Logged out successfully' });
 };
 
@@ -103,4 +112,3 @@ exports.getUsersByRole = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-

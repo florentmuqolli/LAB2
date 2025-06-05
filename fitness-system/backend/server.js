@@ -3,6 +3,8 @@ const express = require('express');
 const connectDB = require('./config/mongo');
 const mysqlPool = require('./config/db');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 
 
 const authRoutes = require('./routes/authRoutes');
@@ -20,6 +22,9 @@ app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
+
+app.use(cookieParser());
+
 
 
 connectDB();

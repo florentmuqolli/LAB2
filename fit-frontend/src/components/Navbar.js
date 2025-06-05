@@ -14,7 +14,6 @@ const Navbar = () => {
     try {
       await axios.post("http://localhost:5000/api/auth/logout");
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
       localStorage.removeItem("role");
       toast.success("Logged out");
 
