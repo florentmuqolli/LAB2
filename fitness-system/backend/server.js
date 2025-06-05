@@ -5,8 +5,6 @@ const mysqlPool = require('./config/db');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-
-
 const authRoutes = require('./routes/authRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const trainerRoutes = require('./routes/trainerRoutes');
@@ -39,8 +37,6 @@ mysqlPool.getConnection()
 
   app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.url}`);
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
   next();
 });
 

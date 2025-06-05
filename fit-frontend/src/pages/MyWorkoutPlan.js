@@ -16,7 +16,7 @@ const MyWorkoutPlans = () => {
       });
       setPlans(response.data);
     } catch (err) {
-      if (err.response && err.response.status === 401) {
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
         try {
           const refreshRes = await axios.post('http://localhost:5000/api/auth/refresh-token', {}, {
             withCredentials: true 

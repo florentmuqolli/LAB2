@@ -31,16 +31,17 @@ exports.login = async (req, res) => {
     const isMatch = await user.matchPassword(password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const accessToken = generateToken(user, process.env.JWT_SECRET, '2h');
+    const accessToken = generateToken(user, process.env.JWT_SECRET, '15m');
     const refreshToken = generateToken(user, process.env.JWT_REFRESH_SECRET, '7d');
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: false, 
-      sameSite: 'none',
+      sameSite: 'lax', 
       path: '/api/auth/refresh-token',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
 
     res.json({
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
@@ -52,14 +53,20 @@ exports.login = async (req, res) => {
 };
 
 exports.refreshToken = (req, res) => {
-  const token = req.cookies.refreshToken;
-  if (!token) return res.status(401).json({ message: 'No token provided' });
+  const refreshToken = req.cookies.refreshToken;
 
-  jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
-    if (err) return res.status(403).json({ message: 'Invalid token' });
+  if (!refreshToken) return res.status(401).json({ message: "No refresh token" });
 
-    const accessToken = generateToken({ _id: decoded.id, role: decoded.role }, process.env.JWT_SECRET, '15m');
-    res.json({ accessToken });
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Invalid refresh token" });
+
+    const newAccessToken = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+    console.log('Decoded refresh token:', user);
+    res.status(200).json({ accessToken: newAccessToken });
   });
 };
 
@@ -77,6 +84,7 @@ exports.logout = (req, res) => {
 exports.getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+    console.log('user id: ',req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
   } catch (err) {
