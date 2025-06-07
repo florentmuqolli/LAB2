@@ -73,10 +73,9 @@ const ProfilePage = () => {
         }, 1000);
       }
     } catch (err) {
-      toast.error("Failed to extend session");
-    } finally {
       setLoading(false);
-    }
+      toast.error("Failed to extend session");
+    } 
   };
 
   const handleLogout = async () => {

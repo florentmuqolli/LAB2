@@ -22,9 +22,11 @@ exports.getMemberById = async (req, res) => {
 exports.createMember = async (req, res) => {
   try {
     const { name, email, phone, address } = req.body;
+    console.log("body: ",req.body);
     const [result] = await Member.create({ name, email, phone, address });
     res.status(201).json({ id: result.insertId, name, email, phone, address });
   } catch (error) {
+    console.error("Create member error:", error);
     res.status(500).json({ message: 'Server error' });
   }
 };
