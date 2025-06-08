@@ -2,14 +2,15 @@ const db = require('../config/db');
 
 const Trainer = {
   getAll: () => db.query('SELECT * FROM trainers'),
-  getById: (id) => db.query('SELECT * FROM trainers WHERE id = ?', [id]),
+  findById: (id) => db.query('SELECT * FROM trainers WHERE id = ?', [id]),
+  findByEmail: (email) => db.query('SELECT * FROM trainers WHERE email = ?', [email]),
   create: (data) => db.query(
-    'INSERT INTO trainers (name, email, specialization) VALUES (?, ?, ?)',
-    [data.name, data.email, data.specialization]
+    'INSERT INTO trainers (name, email, phone, specialty, experience) VALUES (?, ?, ?, ?, ?)',
+    [data.name, data.email, data.phone, data.specialty, data.experience ]
   ),
   update: (id, data) => db.query(
-    'UPDATE trainers SET name = ?, email = ?, specialization = ? WHERE id = ?',
-    [data.name, data.email, data.specialization, id]
+    'UPDATE trainers SET name = ?, email = ?, phone = ?, specialty = ?, experience = ? WHERE id = ?',
+    [data.name, data.email, data.phone, data.specialty, data.experience, id]
   ),
   delete: (id) => db.query('DELETE FROM trainers WHERE id = ?', [id]),
 };

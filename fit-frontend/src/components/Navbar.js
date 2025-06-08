@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { FaAdjust, FaUser, FaDumbbell, FaArrowLeft } from "react-icons/fa";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const isLoggedIn = !!localStorage.getItem("accessToken");
+  const role = localStorage.getItem('role'); 
 
   const handleLogout = async () => {
     setLoading(true);
@@ -29,12 +31,19 @@ const Navbar = () => {
     }
   };
 
+  const handleNavigate = () => {
+    if (role === 'admin') {
+      navigate("/dashboard");
+    } else if (role === 'trainer') {
+      navigate("/trainers");
+    } 
+  }
+
   if (loading) return <LoadingSpinner />;
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-light px-4">
       <Link className="navbar-brand" to="/">Fitness System</Link>
-
       <div className="ms-auto">
         {isLoggedIn ? (
           <div className="dropdown">
@@ -48,16 +57,36 @@ const Navbar = () => {
               Profile
             </button>
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              {(role === 'admin' || role === 'trainer') && (
+                <>
+                  <li>
+                    <Link className="dropdown-item" onClick={handleNavigate}>
+                      <FaAdjust className="me-2" /> Dashboard
+                    </Link>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                </>
+              )}
               <li>
-                <Link className="dropdown-item" to="/profile">👤 Profile</Link>
+                <Link className="dropdown-item" to="/profile">
+                  <FaUser className="me-2" /> Profile
+                </Link>
               </li>
+              {role !== 'admin' && role !== 'trainer' && (
+                <>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <Link className="dropdown-item" to="/my-plans">
+                      <FaDumbbell className="me-2" /> Workout
+                    </Link>
+                  </li>
+                </>
+              )}
               <li><hr className="dropdown-divider" /></li>
               <li>
-                <Link className="dropdown-item" to="/my-plans">🏋️‍♂️ Workout</Link>
-              </li>
-              <li><hr className="dropdown-divider" /></li>
-              <li>
-                <button className="dropdown-item text-danger" onClick={handleLogout}>🚪 Logout</button>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>
+                  <FaArrowLeft className="me-2" /> Logout
+                </button>
               </li>
             </ul>
           </div>
