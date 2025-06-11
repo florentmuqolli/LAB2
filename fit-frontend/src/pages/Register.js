@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Card, Form, Button, Container, InputGroup } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { FaUserPlus, FaArrowLeft, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import LoadingSpinner from "../components/LoadingSpinner";
 import PageWrapper from "../components/PageWrapper";
 
 const Register = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,43 +39,141 @@ const Register = () => {
 
   return (
     <PageWrapper>
-      <div className="container mt-5">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="form-control mb-2"
-          type="text"
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-        <input
-          className="form-control mb-2"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          className="form-control mb-2"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button className="btn btn-primary" disabled={loading}>
-          {loading ? "Registering..." : "Register"}
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary ms-2"
-          onClick={() => navigate("/")}
-          disabled={loading}
+      <Container className="d-flex align-items-center justify-content-center mt-2" style={{ minHeight: "80vh" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-100"
+          style={{ maxWidth: "450px" }}
         >
-          Back
-        </button>
-      </form>
-    </div>
+          <Card className="shadow-lg border-0 rounded-4 overflow-hidden">
+            <Card.Header className="bg-gradient-primary text-primary p-4 border-0">
+              <div className="d-flex align-items-center">
+                <FaUserPlus size={28} className="me-3" />
+                <div>
+                  <h2 className="mb-0">Join Our Community</h2>
+                  <small className="opacity-75">Create your account</small>
+                </div>
+              </div>
+            </Card.Header>
+            
+            <Card.Body className="p-4">
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-muted small mb-1">Full Name</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-light">
+                      <FaUser className="text-primary" />
+                    </InputGroup.Text>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="John Doe"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="py-2"
+                      minLength={3}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide your full name.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-muted small mb-1">Email Address</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-light">
+                      <FaEnvelope className="text-primary" />
+                    </InputGroup.Text>
+                    <Form.Control
+                      required
+                      type="email"
+                      placeholder="your@email.com"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="py-2"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid email.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-muted small mb-1">Password</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-light">
+                      <FaLock className="text-primary" />
+                    </InputGroup.Text>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="••••••••"
+                      value={form.password}
+                      onChange={(e) => setForm({ ...form, password: e.target.value })}
+                      className="py-2"
+                      minLength={6}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Password must be at least 6 characters.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                  <Form.Text className="text-muted small">
+                    At least 6 characters
+                  </Form.Text>
+                </Form.Group>
+
+                <div className="d-grid gap-2 mb-3">
+                  <Button 
+                    variant="primary" 
+                    type="submit" 
+                    disabled={loading}
+                    className="d-flex align-items-center justify-content-center py-2"
+                  >
+                    {loading ? (
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    ) : (
+                      <FaUserPlus className="me-2" />
+                    )}
+                    Create Account
+                  </Button>
+                </div>
+
+                <div className="text-center">
+                  <p className="mb-0 text-muted small">
+                    By registering, you agree to our Terms and Privacy Policy
+                  </p>
+                </div>
+              </Form>
+            </Card.Body>
+
+            <Card.Footer className="bg-light p-4 border-0 text-center">
+              <p className="mb-0 text-muted d-inline-flex align-items-center justify-content-center">
+                Already have an account?
+                <Button 
+                  variant="link" 
+                  className="text-decoration-none p-0"
+                  onClick={() => navigate("/login")}
+                >
+                  Sign in
+                </Button>
+              </p>
+            </Card.Footer>
+          </Card>
+
+          <div className="text-center mt-4">
+            <Button 
+              variant="outline-secondary" 
+              onClick={() => navigate("/")}
+              className="d-flex align-items-center mx-auto"
+            >
+              <FaArrowLeft className="me-2" /> Back to Home
+            </Button>
+          </div>
+        </motion.div>
+      </Container>
     </PageWrapper>
   );
 };

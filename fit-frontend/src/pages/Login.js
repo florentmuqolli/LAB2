@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Card, Form, Button, Container, Row, Col, InputGroup } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { FaSignInAlt, FaArrowLeft, FaLock, FaEnvelope } from "react-icons/fa";
 import LoadingSpinner from "../components/LoadingSpinner";
 import PageWrapper from "../components/PageWrapper";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,36 +61,121 @@ const Login = () => {
 
   return (
     <PageWrapper>
-      <div className="container mt-5">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="form-control mb-2"
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-          <input
-            className="form-control mb-2"
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <button className="btn btn-primary" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary ms-2"
-            onClick={() => navigate("/")}
-            disabled={loading}
-          >
-            Back
-          </button>
-        </form>
-      </div>
+      <Container className="d-flex align-items-center justify-content-center mt-4" style={{ minHeight: "80vh" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-100"
+          style={{ maxWidth: "450px" }}
+        >
+          <Card className="shadow-lg border-0 rounded-4 overflow-hidden">
+            <Card.Header className="bg-gradient-primary text-primary p-4 border-0">
+              <div className="d-flex align-items-center">
+                <FaSignInAlt size={28} className="me-3" />
+                <div>
+                  <h2 className="mb-0">Welcome Back</h2>
+                  <small className="opacity-75">Sign in to your account</small>
+                </div>
+              </div>
+            </Card.Header>
+            
+            <Card.Body className="p-4">
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-muted small mb-1">Email Address</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-light">
+                      <FaEnvelope className="text-primary" />
+                    </InputGroup.Text>
+                    <Form.Control
+                      required
+                      type="email"
+                      placeholder="your@email.com"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="py-2"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid email.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-muted small mb-1">Password</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-light">
+                      <FaLock className="text-primary" />
+                    </InputGroup.Text>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="••••••••"
+                      value={form.password}
+                      onChange={(e) => setForm({ ...form, password: e.target.value })}
+                      className="py-2"
+                      minLength={6}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Password must be at least 6 characters.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+
+                <div className="d-grid gap-2 mb-3">
+                  <Button 
+                    variant="primary" 
+                    type="submit" 
+                    disabled={loading}
+                    className="d-flex align-items-center justify-content-center py-2"
+                  >
+                    {loading ? (
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    ) : (
+                      <FaSignInAlt className="me-2" />
+                    )}
+                    Sign In
+                  </Button>
+                </div>
+
+                <div className="text-center mb-3">
+                  <Button 
+                    variant="link" 
+                    className="text-decoration-none text-muted small"
+                    onClick={() => navigate("/forgot-password")}
+                  >
+                    Forgot password?
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+
+            <Card.Footer className="bg-light p-4 border-0 text-center">
+                <p className="mb-0 text-muted d-inline-flex align-items-center justify-content-center">
+                Don't have an account?
+                <Button 
+                  variant="link" 
+                  className="text-decoration-none p-0"
+                  onClick={() => navigate("/register")}
+                >
+                  Sign up
+                </Button>
+              </p>
+            </Card.Footer>
+          </Card>
+
+          <div className="text-center mt-4">
+            <Button 
+              variant="outline-secondary" 
+              onClick={() => navigate("/")}
+              className="d-flex align-items-center mx-auto"
+            >
+              <FaArrowLeft className="me-2" /> Back to Home
+            </Button>
+          </div>
+        </motion.div>
+      </Container>
     </PageWrapper>
   );
 };
