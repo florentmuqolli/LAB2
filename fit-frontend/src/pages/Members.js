@@ -3,7 +3,7 @@ import { Table, Button, Modal, Form, Alert, Card, Badge, InputGroup } from "reac
 import axiosInstance from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { FaTrash, FaEdit, FaExclamationTriangle, FaSearch, FaUserPlus, FaSync } from "react-icons/fa";
+import { FaTrash, FaEdit, FaExclamationTriangle, FaSearch, FaUserPlus, FaSync, FaUser } from "react-icons/fa";
 
 const Members = () => {
   const [members, setMembers] = useState([]);
@@ -103,7 +103,7 @@ const Members = () => {
         <Card.Body className="p-4">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <div>
-              <h2 className="mb-0 text-primary">Members Directory</h2>
+              <h2 className="mb-0 text-primary"><FaUser className="me-2" />Members Directory</h2>
               <p className="text-muted mb-0">Manage your organization's members</p>
             </div>
             <div className="d-flex">

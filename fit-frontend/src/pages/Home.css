@@ -1,101 +1,111 @@
 .home-container {
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  background-color: #111;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
 }
 
 .hero-section {
-  background: url('../../public/fitness-bg.jpg') no-repeat center center/cover;
-  height: 90vh;
-  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+  url('../../public/fitness-bg.jpg') no-repeat center center/cover;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  color: white;
+  padding: 2rem;
 }
 
-.hero-section .overlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 50px;
-  border-radius: 10px;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.hero-section h1 {
+.hero-title {
   font-size: 3.5rem;
-  margin-bottom: 20px;
-  color: #00ff88;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #00ff88, #00b3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.hero-section p {
+.hero-subtitle {
   font-size: 1.5rem;
-  font-style: italic;
-}
-
-.cta-button {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background-color: #00ff88;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 25px;
-  transition: background 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #00cc6a;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
 }
 
 .features-section {
-  padding: 60px 30px;
-  text-align: center;
-  background-color: #1b1b1b;
+  background-color: #f8f9fa;
 }
 
-.features-section h2 {
-  margin-bottom: 40px;
-  color: #00ff88;
+.section-title {
+  font-weight: 700;
+  color: #212529;
+  position: relative;
+  display: inline-block;
 }
 
-.features {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88, #00b3ff);
 }
 
 .feature-card {
-  background-color: #222;
-  padding: 20px;
-  border-radius: 15px;
-  width: 280px;
-  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.feature-card h3 {
-  color: #00ff88;
-  margin-bottom: 10px;
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
 }
 
 .motivation-section {
-  padding: 60px 20px;
-  background-color: #151515;
-  text-align: center;
-}
-
-.motivation-section blockquote {
-  font-size: 1.7rem;
-  color: #00ff88;
-  margin-bottom: 20px;
+  background-color: white;
 }
 
 .cta-section {
-  padding: 60px 20px;
-  background-color: #0f0f0f;
-  text-align: center;
+  background: linear-gradient(135deg, #00b3ff, #00ff88);
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .hero-actions .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-actions .me-3 {
+    margin-right: 0 !important;
+  }
 }
