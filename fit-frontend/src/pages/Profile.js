@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { isTokenExpired, getTokenRemainingTime } from "../utils/auth";
 import { FaUserEdit, FaSave, FaTimes, FaSignOutAlt, FaClock, FaChartLine, FaDumbbell, FaHeartbeat } from "react-icons/fa";
-import "./Profile.css";
+import "./styling/Profile.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);

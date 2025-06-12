@@ -5,11 +5,14 @@ import { AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import About from './pages/About';
+import Classes from './pages/Classes';
+import Pricing from './pages/Pricing';
+import Contact from './pages/Contact';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import "./pages/Home.css";
 import PageWrapper from "./components/PageWrapper";
 import ProfilePage from "./pages/Profile";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -27,6 +30,10 @@ const AppRoutes = () => {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/classes" element={<Classes />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/test" element={<RefreshTest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

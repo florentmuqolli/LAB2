@@ -1,0 +1,55 @@
+.fitness-about {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.about-hero {
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.team-card {
+  transition: all 0.3s ease;
+}
+
+.team-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.2);
+}
+
+.testimonial-card {
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger {
+  background-color: #e50914;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-hero p {
+    font-size: 1.1rem;
+  }
+  
+  .stats-section h2 {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,103 @@
+.fitness-footer {
+  background: #111;
+  color: #757575;
+  padding: 4rem 0 2rem;
+  border-top: 8px solid #222;
+}
+
+.footer-disclaimer {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.footer-top {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-text {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.footer-link-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-link-column li {
+  margin-bottom: 1rem;
+}
+
+.footer-link-column a {
+  color: #757575;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-link-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-language {
+  margin-bottom: 2rem;
+}
+
+.footer-language .form-select {
+  background: #000;
+  color: #757575;
+  border: 1px solid #333;
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.footer-country {
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-social a {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+.footer-social a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .faq-question {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .subscribe-form {
+    flex-direction: column;
+  }
+  
+  .subscribe-form .btn {
+    margin-top: 1rem;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}

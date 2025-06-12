@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './WorkoutPlan.css';
+import './styling/WorkoutPlan.css';
 import LoadingSpinner from "../components/LoadingSpinner";
 import { toast } from "react-toastify";
 import { Card, Badge, Button, Spinner, Accordion } from 'react-bootstrap';

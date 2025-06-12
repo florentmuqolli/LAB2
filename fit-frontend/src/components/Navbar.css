@@ -1,0 +1,103 @@
+.navbar {
+  background-color: #141414 !important;
+  border-bottom: 1px solid #333;
+  padding: 0.5rem 2rem;
+}
+
+.navbar-brand {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 0.5px;
+  color: #e50914 !important;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.nav-link {
+  color: #e5e5e5 !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+}
+
+.nav-item.active .nav-link {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.btn-outline-light {
+  border-color: #888;
+  color: #e5e5e5;
+}
+
+.btn-outline-light:hover {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-danger {
+  background-color: #e50914;
+  border-color: #e50914;
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  background-color: #f40612;
+  border-color: #f40612;
+}
+
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.dropdown-item {
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #333 !important;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.navbar-toggler {
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: #141414;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+  }
+  
+  .nav-item {
+    margin: 0.5rem 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-item {
+    margin: 0 0.5rem;
+  }
+}

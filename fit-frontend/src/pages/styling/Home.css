@@ -1,0 +1,375 @@
+.style-home {
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.hero-banner {
+  position: relative;
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+}
+
+.hero-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hero-cta .btn {
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.hero-cta .btn:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+.category-section {
+  padding: 4rem 0;
+  background-color: #000;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.category-row {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  gap: 15px;
+  scrollbar-width: none; 
+}
+
+.category-row::-webkit-scrollbar {
+  display: none; 
+}
+
+.category-card {
+  flex: 0 0 auto;
+  width: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-image {
+  height: 170px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.category-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  padding: 20px;
+}
+
+.category-overlay h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.category-overlay p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.features-section {
+  padding: 4rem 0;
+}
+
+.dark-bg {
+  background-color: #141414;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-10px);
+  background-color: rgba(255,255,255,0.1);
+}
+
+.feature-icon {
+  color: #e50914;
+  margin-bottom: 1.5rem;
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-item p {
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.motivation-section {
+  padding: 5rem 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+              url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b') no-repeat center center/cover;
+  text-align: center;
+}
+
+.motivation-section blockquote {
+  font-size: 2rem;
+  font-weight: 600;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+.motivation-section .author {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .category-card {
+    width: 250px;
+  }
+  
+  .motivation-section blockquote {
+    font-size: 1.5rem;
+    padding: 0 20px;
+  }
+}
+
+.fitness-home {
+  background: #000;
+  color: #fff;
+}
+
+.hero-banner {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+              url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b') center/cover;
+  height: 80vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.btn-danger {
+  background-color: #e50914;
+  border-color: #e50914;
+}
+
+.btn-danger:hover {
+  background-color: #f40612;
+  border-color: #f40612;
+}
+
+.faq-section {
+  padding: 4rem 0;
+  background: #000;
+  color: #fff;
+}
+
+.faq-list {
+  max-width: 815px;
+  margin: 2rem auto;
+}
+
+.faq-item {
+  margin-bottom: 0.5rem;
+}
+
+.faq-question {
+  color: #fff;
+  background: #303030;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  text-align: left;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.faq-question:hover {
+  background: #404040;
+}
+
+.faq-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.faq-icon path {
+  transform-origin: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-icon-plus {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.faq-icon-close {
+  opacity: 0;
+  transform: rotate(90deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.faq-item.active .faq-icon-plus {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.faq-item.active .faq-icon-close {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.faq-answer {
+  background: #303030;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-answer-content {
+  padding: 1.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: 
+    opacity 0.3s ease 0.1s,
+    transform 0.3s ease 0.1s;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+
+.faq-item.active .faq-answer-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .faq-question {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .faq-answer-content {
+    padding: 1rem;
+  }
+}
+
+.subscribe-form {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.subscribe-form .form-control {
+  height: 60px;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+.subscribe-form .btn {
+  height: 60px;
+  font-size: 1.5rem;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+}
+
+.testimonial-section {
+  padding: 4rem 0;
+  background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+  text-align: center;
+}
+
+.testimonial-section blockquote {
+  font-size: 1.8rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+.testimonial-section .author {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-style: normal;
+  color: #e50914;
+}
+
