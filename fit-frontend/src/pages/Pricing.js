@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaFire, FaStar, FaCrown, FaCheck } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageWrapper from '../components/PageWrapper';
@@ -6,6 +7,12 @@ import Footer from '../components/Footer';
 import "./styling/Pricing.css";
 
 const Pricing = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/contact');
+  }
+
   const plans = [
     { 
       name: 'Basic', 
@@ -119,7 +126,7 @@ const Pricing = () => {
                       <h3 className="mb-1">{plan.name}</h3>
                       <div className="price-display">
                         <span className="display-4 fw-bold">{plan.price}</span>
-                        <span className="text-muted">/{plan.period}</span>
+                        <span className="text-secondary">/{plan.period}</span>
                       </div>
                     </div>
                     
@@ -203,7 +210,7 @@ const Pricing = () => {
           <div className="container">
             <h3 className="mb-4">Still have questions?</h3>
             <p className="text-secondary mb-4">Our team is happy to help you choose the perfect plan</p>
-            <button className="btn btn-outline-light px-5 py-3">
+            <button className="btn btn-outline-light px-5 py-3" onClick={handleNavigate}>
               Contact Support
             </button>
           </div>
