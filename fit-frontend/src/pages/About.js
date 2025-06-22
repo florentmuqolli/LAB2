@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaDumbbell, FaHeartbeat, FaUsers, FaChartLine, FaTrophy } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageWrapper from '../components/PageWrapper';
@@ -6,6 +7,13 @@ import Footer from '../components/Footer';
 import "./styling/About.css";
 
 const About = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("accessToken");
+
+  const handleNavigate = () => {
+    navigate('/register');
+  }
+
   const features = [
     {
       icon: <FaDumbbell size={40} />,
@@ -117,7 +125,7 @@ const About = () => {
           <div className="container py-5">
             <div className="text-center mb-5">
               <h2 className="fw-bold">Why Choose Us</h2>
-              <p className="text-muted">What makes our approach different</p>
+              <p className="text-secondary">What makes our approach different</p>
             </div>
             <div className="row g-4">
               {features.map((feature, index) => (
@@ -138,7 +146,7 @@ const About = () => {
                       {feature.icon}
                     </div>
                     <h4>{feature.title}</h4>
-                    <p className="text-muted">{feature.description}</p>
+                    <p className="text-secondary">{feature.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -173,7 +181,7 @@ const About = () => {
           <div className="container py-5">
             <div className="text-center mb-5">
               <h2 className="fw-bold">Meet Our Team</h2>
-              <p className="text-muted">The experts behind your transformation</p>
+              <p className="text-secondary">The experts behind your transformation</p>
             </div>
             <div className="row g-4 justify-content-center">
               {teamMembers.map((member, index) => (
@@ -197,7 +205,7 @@ const About = () => {
                     />
                     <h4>{member.name}</h4>
                     <p className="text-danger mb-2">{member.role}</p>
-                    <p className="text-muted">{member.bio}</p>
+                    <p className="text-secondary">{member.bio}</p>
                   </div>
                 </motion.div>
               ))}
@@ -209,7 +217,7 @@ const About = () => {
           <div className="container py-5">
             <div className="text-center mb-5">
               <h2 className="fw-bold">Success Stories</h2>
-              <p className="text-muted">Hear from our members</p>
+              <p className="text-secondary">Hear from our members</p>
             </div>
             <div className="row g-4">
               {[1, 2, 3].map((item, index) => (
@@ -229,7 +237,7 @@ const About = () => {
                       <FaTrophy className="text-danger me-2" size={24} />
                       <h5 className="mb-0">Transformation #{index + 1}</h5>
                     </div>
-                    <p className="text-muted mb-3">
+                    <p className="text-secondary mb-3">
                       "This program completely changed my life. I lost 25kg and gained so much confidence. The trainers are incredibly supportive!"
                     </p>
                     <div className="d-flex align-items-center">
@@ -241,7 +249,7 @@ const About = () => {
                       />
                       <div>
                         <h6 className="mb-0">Member Name</h6>
-                        <small className="text-muted">6 months progress</small>
+                        <small className="text-secondary">6 months progress</small>
                       </div>
                     </div>
                   </div>
@@ -250,7 +258,7 @@ const About = () => {
             </div>
           </div>
         </section>
-
+        {!isLoggedIn &&
         <section className="py-5" style={{ background: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b) center/cover' }}>
           <div className="container py-5 text-center">
             <motion.div
@@ -260,12 +268,13 @@ const About = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="display-5 fw-bold mb-4">Ready to Transform Your Life?</h2>
-              <button className="btn btn-danger btn-lg px-5 py-3">
+              <button className="btn btn-danger btn-lg px-5 py-3" onClick={handleNavigate}>
                 Join Now
               </button>
             </motion.div>
           </div>
         </section>
+        }
 
         <Footer />
       </div>
